@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel" v-on:click="preMenu(item.code, item.id)"  v-for="(item, index) in pre">
+        <div class="panel" v-on:click="preMenu(item.prefix_code, item.id)"  v-for="(item, index) in pre">
             <div class="pre">
                 <p>{{index}} 今开: {{stock[index][1]}}</p>
                 <p>日期: {{item.date}}</p>
@@ -79,7 +79,7 @@
         </ul>
         <ul id="pre-menu" ref="preMenu">
             <li v-on:click="deletePreItem">删除</li>
-            <li>hello</li>
+            <li v-on:click="detail">五日图</li>
             <li>hello</li>
             <li>hello</li>
         </ul>
@@ -200,9 +200,9 @@
                 this.$refs.contentMenu.style.top = event.clientY + 'px';
                 // return false;
             },
-            preMenu: function (code, id) {
+            preMenu: function (prefix_code, id) {
                 let event = window.event;
-                this.menuCode = code;
+                this.menuCode = prefix_code;
                 this.preData.id = id;
                 let dis = 'block';
                 if ('block' === this.$refs.preMenu.style.display) {
@@ -239,6 +239,9 @@
                 }, error => {
                     console.log(error);
                 })
+            },
+            detail: function () {
+                window.open(`http://finance.sina.com.cn/realstock/company/${this.menuCode}/nc.shtml`);
             }
         }
     }
